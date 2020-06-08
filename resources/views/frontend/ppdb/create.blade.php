@@ -93,6 +93,18 @@
                 </div>
             </div>
 
+           <div class="container">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ol type="1">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ol>
+            </div>
+        @endif
+           </div>
+
             <form action="{{ route('ppdb.store') }}" method="POST" enctype="multipart/form-data"  class="container">
                 @csrf
                 <div class="row">
@@ -115,8 +127,8 @@
                             <label for="">Jenis Kelamin</label>
                             <select name="jenis_kelamin" id="" required class="form-control">
                                 <option value="">Pilih jenis kelamin</option>
-                                <option value="Laki-Laki">Laki-laki</option>
-                                <option value="Perempuan">Perempuan</option>
+                                <option {{ old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }} value="Laki-Laki">Laki-laki</option>
+                                <option {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }} value="Perempuan">Perempuan</option>
                             </select>
                             <small class="text-danger">{{ $errors->first('jenis_kelamin') }}</small>
 
@@ -193,13 +205,13 @@
                         <div class="form-group">
                             <label for="">Agama</label>
                             <select name="agama" id="" class="form-control">
-                            <option value="">Pilih agama kepercayaan</option>
-                            <option value="Islam">Islam</option>
-                            <option value="Kristen/Protestan">Kristen/Protestan</option>
-                            <option value="Katholik">Katholik</option>
-                            <option value="Hindu">Hindu</option>
-                            <option value="Budha">Budha</option>
-                            <option value="Kong hu chu">Kong hu chu</option>
+                                <option  value="">Pilih agama kepercayaan</option>
+                                <option {{ old('agama') == 'Islam' ? 'selected' : '' }} value="Islam">Islam</option>
+                                <option {{ old('agama') == 'Kristen/Protestan' ? 'selected' : '' }} value="Kristen/Protestan">Kristen/Protestan</option>
+                                <option {{ old('agama') == 'Katholik' ? 'selected' : '' }} value="Katholik">Katholik</option>
+                                <option {{ old('agama') == 'Hindu' ? 'selected' : '' }} value="Hindu">Hindu</option>
+                                <option {{ old('agama') == 'Budha' ? 'selected' : '' }} value="Budha">Budha</option>
+                                <option {{ old('agama') == 'Kong hu chu' ? 'selected' : '' }} value="Kong hu chu">Kong hu chu</option>
                             </select>
                             <small class="text-danger">{{ $errors->first('agama') }}</small>
 
@@ -259,10 +271,10 @@
                             <label for="">Moda Transportasi</label>
                             <select name="transportasi" id="" class="form-control" required>
                                 <option value="">-- Pilih Transportasi --</option>
-                                <option value="Sepeda Motor">Sepeda Motor</option>
-                                <option value="Jalan Kaki">Jalan Kaki</option>
-                                <option value="Antar Jemput">Antar Jemput</option>
-                                <option value="Naik Angkot">Naik Angkot</option>
+                                <option {{ old('transportasi') == 'Sepeda Motor' ? 'selected' : '' }} value="Sepeda Motor">Sepeda Motor</option>
+                                <option {{ old('transportasi') == 'Jalan Kaki' ? 'selected' : '' }} value="Jalan Kaki">Jalan Kaki</option>
+                                <option {{ old('transportasi') == 'Antra Jemput' ? 'selected' : '' }} value="Antar Jemput">Antar Jemput</option>
+                                <option {{ old('transportasi') == 'Naik Motor' ? 'selected' : '' }} value="Naik Angkot">Naik Angkot</option>
                             </select>
                             <small class="text-danger">{{ $errors->first('transportasi') }}</small>
 
@@ -272,10 +284,10 @@
                             <label for="">Tinggal Bersama</label>
                             <select name="tinggal_bersama" id="" class="form-control" required>
                                 <option value="">-- Pilih tinggal bersama -- </option>
-                                <option value="Orang Tua">Orang Tua</option>
-                                <option value="Kakek/Nenek">Kakek / Nenek</option>
-                                <option value="Paman/Bibik">Paman / Bibik</option>
-                                <option value="Lainnya">Lainnya</option>
+                                <option {{ old('tinggal_bersama') == 'Orang Tua' ? 'selected' : '' }} value="Orang Tua">Orang Tua</option>
+                                <option {{ old('tinggal_bersama') == 'Kakek/Nenek' ? 'selected' : '' }} value="Kakek/Nenek">Kakek / Nenek</option>
+                                <option {{ old('tinggal_bersama') == 'Paman/Bibik' ? 'selected' : '' }} value="Paman/Bibik">Paman / Bibik</option>
+                                <option {{ old('tinggal_bersama') == 'Lainnya' ? 'selected' : '' }} value="Lainnya">Lainnya</option>
                             </select>
                             <small class="text-danger">{{ $errors->first('tinggal_bersama') }}</small>
 
@@ -337,6 +349,8 @@
                         <div class="form-group">
                             <label for="">Nomor KIP</label>
                             <input type="text" name="no_kip" value="{{ old('no_kip') }}" id="no_kip" class="form-control" aria-describedby="helpId">
+                            <small class="text-danger">{{ $errors->first('no_kip') }}</small>
+
                         </div>
 
 
@@ -364,6 +378,8 @@
                             <input type="text" name="nik_ayah" value="{{ old('nik_ayah') }}" id="" class="form-control" aria-describedby="helpId" required>
                             <small id="helpId" class="text-muted">Nomor Induk Kependudukan yang tercantum pada Kartu
                             Keluarga atau KTP ayah kandung</small>
+                            <small class="text-danger">{{ $errors->first('nik_ayah') }}</small>
+
                         </div>
 
                         <div class="form-group">
@@ -375,18 +391,18 @@
                         <div class="form-group">
                             <label>Pendidikan Terakhir Ayah</label>
                             <select name="pendidikan_terakhir_ayah" id="" class="form-control" required>
-                            <option value=""></option>
-                            <option value="Tidak Sekolah">Tidak Sekolah</option>
-                            <option value="Putus SD">Putus SD</option>
-                            <option value="SD/Sederajat">SD / Sederajat</option>
-                            <option value="SMP/Sederajat">SMP / Sederajat</option>
-                            <option value="SMA/Sederajat">SMA / Sederajat</option>
-                            <option value="D1">D1</option>
-                            <option value="D2">D2</option>
-                            <option value="D3">D3</option>
-                            <option value="D4/S1">D4/S1</option>
-                            <option value="S2">S2</option>
-                            <option value="S3">S3</option>
+                                <option value=""></option>
+                                <option {{ old('pendidikan_terakhir_ayah') == 'Tidak Sekolah' ? 'selected' : '' }} value="Tidak Sekolah">Tidak Sekolah</option>
+                                <option {{ old('pendidikan_terakhir_ayah') == 'Putus SD' ? 'selected' : '' }} value="Putus SD">Putus SD</option>
+                                <option {{ old('pendidikan_terakhir_ayah') == 'SD/Sederajat' ? 'selected' : '' }} value="SD/Sederajat">SD / Sederajat</option>
+                                <option {{ old('pendidikan_terakhir_ayah') == 'SMP/Sederajat' ? 'selected' : '' }} value="SMP/Sederajat">SMP / Sederajat</option>
+                                <option {{ old('pendidikan_terakhir_ayah') == 'SMA/Sederajat' ? 'selected' : '' }} value="SMA/Sederajat">SMA / Sederajat</option>
+                                <option {{ old('pendidikan_terakhir_ayah') == 'D1' ? 'selected' : '' }} value="D1">D1</option>
+                                <option {{ old('pendidikan_terakhir_ayah') == 'D2' ? 'selected' : '' }} value="D2">D2</option>
+                                <option {{ old('pendidikan_terakhir_ayah') == 'D3' ? 'selected' : '' }} value="D3">D3</option>
+                                <option {{ old('pendidikan_terakhir_ayah') == 'D4/S1' ? 'selected' : '' }} value="D4/S1">D4/S1</option>
+                                <option {{ old('pendidikan_terakhir_ayah') == 'S2' ? 'selected' : '' }} value="S2">S2</option>
+                                <option {{ old('pendidikan_terakhir_ayah') == 'S3' ? 'selected' : '' }} value="S3">S3</option>
                             </select>
                         </div>
 
@@ -394,39 +410,39 @@
                             <label for="">Pekerjaan Ayah</label>
                             <select name="pekerjaan_ayah" id="" class="form-control" required>
                             <option value="">-- Pilih Pekerjaan Ayah --</option>
-                            <option value="Tidak Bekerja">Tidak Bekerja</option>
-                            <option value="Nelayan">Nelayan</option>
-                            <option value="Petani">Petani</option>
-                            <option value="Peternak">Peternak</option>
-                            <option value="PNS/TNI/Polri">PNS/TNI/Polri</option>
-                            <option value="Karyawan Swasta">Karyawan Swasta</option>
-                            <option value="Pedagang Kecil">Pedagang Kecil</option>
-                            <option value="Pedagang Besar">Pedagang Besar</option>
-                            <option value="Wiraswasta">Wiraswasta </option>
-                            <option value="Buruh">Buruh</option>
-                            <option value="Pensiunan">Pensiunan</option>
-                            <option value="Tenaga Kerja Indonesia">Tenaga Kerja Indonesia</option>
-                            <option value="Tidak dapat diterapkan">Tidak dapat diterapkan</option>
-                            <option value="Sudah Meninggal">Sudah Meninggal</option>
-                            <option value="Lainnya">Lainnya</option>
+                            <option {{ old('pekerjaan_ayah') == 'Tidak Bekerja' ? 'selected' : '' }} value="Tidak Bekerja">Tidak Bekerja</option>
+                            <option {{ old('pekerjaan_ayah') == 'Nelayan' ? 'selected' : '' }} value="Nelayan">Nelayan</option>
+                            <option {{ old('pekerjaan_ayah') == 'Petani' ? 'selected' : '' }} value="Petani">Petani</option>
+                            <option {{ old('pekerjaan_ayah') == 'Peternak' ? 'selected' : '' }} value="Peternak">Peternak</option>
+                            <option {{ old('pekerjaan_ayah') == 'PNS/TNI/Polri' ? 'selected' : '' }} value="PNS/TNI/Polri">PNS/TNI/Polri</option>
+                            <option {{ old('pekerjaan_ayah') == 'Karyawan Swasta' ? 'selected' : '' }} value="Karyawan Swasta">Karyawan Swasta</option>
+                            <option {{ old('pekerjaan_ayah') == 'Pedagang Kecil' ? 'selected' : '' }} value="Pedagang Kecil">Pedagang Kecil</option>
+                            <option {{ old('pekerjaan_ayah') == 'Pedagang Besar' ? 'selected' : '' }} value="Pedagang Besar">Pedagang Besar</option>
+                            <option {{ old('pekerjaan_ayah') == 'Wiraswasta' ? 'selected' : '' }} value="Wiraswasta">Wiraswasta </option>
+                            <option {{ old('pekerjaan_ayah') == 'Buruh' ? 'selected' : '' }} value="Buruh">Buruh</option>
+                            <option {{ old('pekerjaan_ayah') == 'Pensiuanan' ? 'selected' : '' }} value="Pensiunan">Pensiunan</option>
+                            <option {{ old('pekerjaan_ayah') == 'Tenaga Kerja Indonesia' ? 'selected' : '' }} value="Tenaga Kerja Indonesia">Tenaga Kerja Indonesia</option>
+                            <option {{ old('pekerjaan_ayah') == 'Tidak dapat diterapkan' ? 'selected' : '' }} value="Tidak dapat diterapkan">Tidak dapat diterapkan</option>
+                            <option {{ old('pekerjaan_ayah') == 'Sudah Meninggal' ? 'selected' : '' }} value="Sudah Meninggal">Sudah Meninggal</option>
+                            <option {{ old('pekerjaan_ayah') == 'Lainnya' ? 'selected' : '' }} value="Lainnya">Lainnya</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label>Penghasilan Perbulan Ayah</label>
                             <select name="penghasilan_ayah" id="" class="form-control" required>
-                                <option value="">-- Pilih Gaji Ayah --</option>
-                                <option value="Kurang dari Rp 1.000.000">Kurang dari Rp 1.000.000 </option>
-                                <option value="Rp 1.000.000 - Rp 2.000.000">Rp 1.000.000 - Rp 2.000.000 </option>
-                                <option value="Lebih dari Rp 2.000.000">Lebih dari Rp 2.000.000 </option>
-                                <option value="Kurang dari Rp. 500,000">Kurang dari Rp. 500,000 </option>
-                                <option value="Rp. 500,000 - Rp. 999,999">Rp. 500,000 - Rp. 999,999 </option>
-                                <option value="Rp. 1,000,000 - Rp. 1,999,999">Rp. 1,000,000 - Rp. 1,999,999 </option>
-                                <option value="Rp. 2,000,000 - Rp. 4,999,999">Rp. 2,000,000 - Rp. 4,999,999</option>
-                                <option value="Rp. 5,000,000 - Rp. 20,000,000">Rp. 5,000,000 - Rp. 20,000,000 </option>
-                                <option value="Lebih dari Rp. 20,000,000">Lebih dari Rp. 20,000,000 </option>
-                                <option value="Tidak Berpenghasilan">Tidak Berpenghasilan</option>
-                                <option value="Lainnya">Lainnya</option>
+                                <option value="">-- Pilih Penghasilan Wali --</option>
+                                <option {{ old('penghasilan_ayah') == 'Kurang dari Rp 1.000.000' ? : 'selected' }} value="Kurang dari Rp 1.000.000" >Kurang dari Rp 1.000.000 </option>
+                                <option {{ old('penghasilan_ayah') == 'Rp 1.000.000 - Rp 2.000.000' ? : 'selected' }} value="Rp 1.000.000 - Rp 2.000.000">Rp 1.000.000 - Rp 2.000.000 </option>
+                                <option {{ old('penghasilan_ayah') == 'Lebih dari Rp 2.000.000' ? : 'selected' }} value="Lebih dari Rp 2.000.000">Lebih dari Rp 2.000.000 </option>
+                                <option {{ old('penghasilan_ayah') == 'Kurang dari Rp. 500,000' ? : 'selected' }} value="Kurang dari Rp. 500,000">Kurang dari Rp. 500,000 </option>
+                                <option {{ old('penghasilan_ayah') == 'Rp. 500,000 - Rp. 999,999' ? : 'selected' }} value="Rp. 500,000 - Rp. 999,999">Rp. 500,000 - Rp. 999,999 </option>
+                                <option {{ old('penghasilan_ayah') == 'Rp. 1,000,000 - Rp. 1,999,999' ? : 'selected' }} value="Rp. 1,000,000 - Rp. 1,999,999">Rp. 1,000,000 - Rp. 1,999,999 </option>
+                                <option {{ old('penghasilan_ayah') == 'Rp. 2,000,000 - Rp. 4,999,999' ? : 'selected' }} value="Rp. 2,000,000 - Rp. 4,999,999">Rp. 2,000,000 - Rp. 4,999,999</option>
+                                <option {{ old('penghasilan_ayah') == 'Rp. 5,000,000 - Rp. 20,000,000' ? : 'selected' }} value="Rp. 5,000,000 - Rp. 20,000,000">Rp. 5,000,000 - Rp. 20,000,000 </option>
+                                <option {{ old('penghasilan_ayah') == 'Lebih dari Rp. 20,000,000' ? : 'selected' }} value="Lebih dari Rp. 20,000,000">Lebih dari Rp. 20,000,000 </option>
+                                <option {{ old('penghasilan_ayah') == 'Tidak Berpenghasilan' ? : 'selected' }} value="Tidak Berpenghasilan">Tidak Berpenghasilan</option>
+                                <option {{ old('penghasilan_ayah') == 'Lainnya' ? : 'selected' }} value="Lainnya">Lainnya</option>
                             </select>
                         </div>
                         </div>
@@ -464,18 +480,18 @@
                         <div class="form-group">
                             <label>Pendidikan Terakhir Ibu</label>
                             <select name="pendidikan_terakhir_ibu" id="" class="form-control" required>
-                                <option value="">-- Pilih Pendidikan Ibu --</option>
-                                <option value="Tidak Sekolah">Tidak Sekolah</option>
-                                <option value="Putus SD">Putus SD</option>
-                                <option value="SD/Sederajat">SD / Sederajat</option>
-                                <option value="SMP/Sederajat">SMP / Sederajat</option>
-                                <option value="SMA/Sederajat">SMA / Sederajat</option>
-                                <option value="D1">D1</option>
-                                <option value="D2">D2</option>
-                                <option value="D3">D3</option>
-                                <option value="D4/S1">D4/S1</option>
-                                <option value="S2">S2</option>
-                                <option value="S3">S3</option>
+                                <option value="">Pilih pendidikan ibu</option>
+                                <option {{ old('pendidikan_terakhir_ibu') == 'Tidak Sekolah' ? 'selected' : '' }} value="Tidak Sekolah">Tidak Sekolah</option>
+                                <option {{ old('pendidikan_terakhir_ibu') == 'Putus SD' ? 'selected' : '' }} value="Putus SD">Putus SD</option>
+                                <option {{ old('pendidikan_terakhir_ibu') == 'SD/Sederajat' ? 'selected' : '' }} value="SD/Sederajat">SD / Sederajat</option>
+                                <option {{ old('pendidikan_terakhir_ibu') == 'SMP/Sederajat' ? 'selected' : '' }} value="SMP/Sederajat">SMP / Sederajat</option>
+                                <option {{ old('pendidikan_terakhir_ibu') == 'SMA/Sederajat' ? 'selected' : '' }} value="SMA/Sederajat">SMA / Sederajat</option>
+                                <option {{ old('pendidikan_terakhir_ibu') == 'D1' ? 'selected' : '' }} value="D1">D1</option>
+                                <option {{ old('pendidikan_terakhir_ibu') == 'D2' ? 'selected' : '' }} value="D2">D2</option>
+                                <option {{ old('pendidikan_terakhir_ibu') == 'D3' ? 'selected' : '' }} value="D3">D3</option>
+                                <option {{ old('pendidikan_terakhir_ibu') == 'D4/S1' ? 'selected' : '' }} value="D4/S1">D4/S1</option>
+                                <option {{ old('pendidikan_terakhir_ibu') == 'S2' ? 'selected' : '' }} value="S2">S2</option>
+                                <option {{ old('pendidikan_terakhir_ibu') == 'S3' ? 'selected' : '' }} value="S3">S3</option>
                             </select>
                         </div>
 
@@ -483,21 +499,21 @@
                             <label for="">Pekerjaan Ibu</label>
                             <select name="pekerjaan_ibu" id="" class="form-control" required>
                                 <option value="">-- Pilih Pekerjaan Ayah --</option>
-                                <option value="Tidak Bekerja">Tidak Bekerja</option>
-                                <option value="Nelayan">Nelayan</option>
-                                <option value="Petani">Petani</option>
-                                <option value="Peternak">Peternak</option>
-                                <option value="PNS/TNI/Polri">PNS/TNI/Polri</option>
-                                <option value="Karyawan Swasta">Karyawan Swasta</option>
-                                <option value="Pedagang Kecil">Pedagang Kecil</option>
-                                <option value="Pedagang Besar">Pedagang Besar</option>
-                                <option value="Wiraswasta">Wiraswasta </option>
-                                <option value="Buruh">Buruh</option>
-                                <option value="Pensiunan">Pensiunan</option>
-                                <option value="Tenaga Kerja Indonesia">Tenaga Kerja Indonesia</option>
-                                <option value="Tidak dapat diterapkan">Tidak dapat diterapkan</option>
-                                <option value="Sudah Meninggal">Sudah Meninggal</option>
-                                <option value="Lainnya">Lainnya</option>
+                                <option {{ old('pekerjaan_ibu') == 'Tidak Bekerja' ? 'selected' : '' }} value="Tidak Bekerja">Tidak Bekerja</option>
+                                <option {{ old('pekerjaan_ibu') == 'Nelayan' ? 'selected' : '' }} value="Nelayan">Nelayan</option>
+                                <option {{ old('pekerjaan_ibu') == 'Petani' ? 'selected' : '' }} value="Petani">Petani</option>
+                                <option {{ old('pekerjaan_ibu') == 'Peternak' ? 'selected' : '' }} value="Peternak">Peternak</option>
+                                <option {{ old('pekerjaan_ibu') == 'PNS/TNI/Polri' ? 'selected' : '' }} value="PNS/TNI/Polri">PNS/TNI/Polri</option>
+                                <option {{ old('pekerjaan_ibu') == 'Karyawan Swasta' ? 'selected' : '' }} value="Karyawan Swasta">Karyawan Swasta</option>
+                                <option {{ old('pekerjaan_ibu') == 'Pedagang Kecil' ? 'selected' : '' }} value="Pedagang Kecil">Pedagang Kecil</option>
+                                <option {{ old('pekerjaan_ibu') == 'Pedagang Besar' ? 'selected' : '' }} value="Pedagang Besar">Pedagang Besar</option>
+                                <option {{ old('pekerjaan_ibu') == 'Wiraswasta' ? 'selected' : '' }} value="Wiraswasta">Wiraswasta </option>
+                                <option {{ old('pekerjaan_ibu') == 'Buruh' ? 'selected' : '' }} value="Buruh">Buruh</option>
+                                <option {{ old('pekerjaan_ibu') == 'Pensiuanan' ? 'selected' : '' }} value="Pensiunan">Pensiunan</option>
+                                <option {{ old('pekerjaan_ibu') == 'Tenaga Kerja Indonesia' ? 'selected' : '' }} value="Tenaga Kerja Indonesia">Tenaga Kerja Indonesia</option>
+                                <option {{ old('pekerjaan_ibu') == 'Tidak dapat diterapkan' ? 'selected' : '' }} value="Tidak dapat diterapkan">Tidak dapat diterapkan</option>
+                                <option {{ old('pekerjaan_ibu') == 'Sudah Meninggal' ? 'selected' : '' }} value="Sudah Meninggal">Sudah Meninggal</option>
+                                <option {{ old('pekerjaan_ibu') == 'Lainnya' ? 'selected' : '' }} value="Lainnya">Lainnya</option>
                             </select>
                         </div>
 
@@ -505,18 +521,18 @@
                         <div class="form-group">
                             <label>Penghasilan Perbulan Ibu</label>
                             <select name="penghasilan_ibu" id="" class="form-control" required>
-                                <option value="">-- Penghasilan Ibu Perbulan --</option>
-                                <option value="Kurang dari Rp 1.000.000">Kurang dari Rp 1.000.000 </option>
-                                <option value="Rp 1.000.000 - Rp 2.000.000">Rp 1.000.000 - Rp 2.000.000 </option>
-                                <option value="Lebih dari Rp 2.000.000">Lebih dari Rp 2.000.000 </option>
-                                <option value="Kurang dari Rp. 500,000">Kurang dari Rp. 500,000 </option>
-                                <option value="Rp. 500,000 - Rp. 999,999">Rp. 500,000 - Rp. 999,999 </option>
-                                <option value="Rp. 1,000,000 - Rp. 1,999,999">Rp. 1,000,000 - Rp. 1,999,999 </option>
-                                <option value="Rp. 2,000,000 - Rp. 4,999,999">Rp. 2,000,000 - Rp. 4,999,999</option>
-                                <option value="Rp. 5,000,000 - Rp. 20,000,000">Rp. 5,000,000 - Rp. 20,000,000 </option>
-                                <option value="Lebih dari Rp. 20,000,000">Lebih dari Rp. 20,000,000 </option>
-                                <option value="Tidak Berpenghasilan">Tidak Berpenghasilan</option>
-                                <option value="Lainnya">Lainnya</option>
+                                <option value="">-- Pilih Penghasilan Wali --</option>
+                                <option {{ old('penghasilan_ibu') == 'Kurang dari Rp 1.000.000' ? : 'selected' }} value="Kurang dari Rp 1.000.000" >Kurang dari Rp 1.000.000 </option>
+                                <option {{ old('penghasilan_ibu') == 'Rp 1.000.000 - Rp 2.000.000' ? : 'selected' }} value="Rp 1.000.000 - Rp 2.000.000">Rp 1.000.000 - Rp 2.000.000 </option>
+                                <option {{ old('penghasilan_ibu') == 'Lebih dari Rp 2.000.000' ? : 'selected' }} value="Lebih dari Rp 2.000.000">Lebih dari Rp 2.000.000 </option>
+                                <option {{ old('penghasilan_ibu') == 'Kurang dari Rp. 500,000' ? : 'selected' }} value="Kurang dari Rp. 500,000">Kurang dari Rp. 500,000 </option>
+                                <option {{ old('penghasilan_ibu') == 'Rp. 500,000 - Rp. 999,999' ? : 'selected' }} value="Rp. 500,000 - Rp. 999,999">Rp. 500,000 - Rp. 999,999 </option>
+                                <option {{ old('penghasilan_ibu') == 'Rp. 1,000,000 - Rp. 1,999,999' ? : 'selected' }} value="Rp. 1,000,000 - Rp. 1,999,999">Rp. 1,000,000 - Rp. 1,999,999 </option>
+                                <option {{ old('penghasilan_ibu') == 'Rp. 2,000,000 - Rp. 4,999,999' ? : 'selected' }} value="Rp. 2,000,000 - Rp. 4,999,999">Rp. 2,000,000 - Rp. 4,999,999</option>
+                                <option {{ old('penghasilan_ibu') == 'Rp. 5,000,000 - Rp. 20,000,000' ? : 'selected' }} value="Rp. 5,000,000 - Rp. 20,000,000">Rp. 5,000,000 - Rp. 20,000,000 </option>
+                                <option {{ old('penghasilan_ibu') == 'Lebih dari Rp. 20,000,000' ? : 'selected' }} value="Lebih dari Rp. 20,000,000">Lebih dari Rp. 20,000,000 </option>
+                                <option {{ old('penghasilan_ibu') == 'Tidak Berpenghasilan' ? : 'selected' }} value="Tidak Berpenghasilan">Tidak Berpenghasilan</option>
+                                <option {{ old('penghasilan_ibu') == 'Lainnya' ? : 'selected' }} value="Lainnya">Lainnya</option>
                             </select>
                         </div>
                         </div>
@@ -553,17 +569,17 @@
                             <label>Pendidikan Terakhir Wali</label>
                             <select name="pendidikan_terakhir_wali" id="" class="form-control" required>
                                 <option value="">-- Pilih Pendidikan Wali --</option>
-                                <option value="Tidak Sekolah">Tidak Sekolah</option>
-                                <option value="Putus SD">Putus SD</option>
-                                <option value="SD/Sederajat">SD / Sederajat</option>
-                                <option value="SMP/Sederajat">SMP / Sederajat</option>
-                                <option value="SMA/Sederajat">SMA / Sederajat</option>
-                                <option value="D1">D1</option>
-                                <option value="D2">D2</option>
-                                <option value="D3">D3</option>
-                                <option value="D4/S1">D4/S1</option>
-                                <option value="S2">S2</option>
-                                <option value="S3">S3</option>
+                                <option {{ old('pendidikan_terakhir_wali') == 'Tidak Sekolah' ? 'selected' : '' }} value="Tidak Sekolah">Tidak Sekolah</option>
+                                <option {{ old('pendidikan_terakhir_wali') == 'Putus SD' ? 'selected' : '' }} value="Putus SD">Putus SD</option>
+                                <option {{ old('pendidikan_terakhir_wali') == 'SD/Sederajat' ? 'selected' : '' }} value="SD/Sederajat">SD / Sederajat</option>
+                                <option {{ old('pendidikan_terakhir_wali') == 'SMP/Sederajat' ? 'selected' : '' }} value="SMP/Sederajat">SMP / Sederajat</option>
+                                <option {{ old('pendidikan_terakhir_wali') == 'SMA/Sederajat' ? 'selected' : '' }} value="SMA/Sederajat">SMA / Sederajat</option>
+                                <option {{ old('pendidikan_terakhir_wali') == 'D1' ? 'selected' : '' }} value="D1">D1</option>
+                                <option {{ old('pendidikan_terakhir_wali') == 'D2' ? 'selected' : '' }} value="D2">D2</option>
+                                <option {{ old('pendidikan_terakhir_wali') == 'D3' ? 'selected' : '' }} value="D3">D3</option>
+                                <option {{ old('pendidikan_terakhir_wali') == 'D4/S1' ? 'selected' : '' }} value="D4/S1">D4/S1</option>
+                                <option {{ old('pendidikan_terakhir_wali') == 'S2' ? 'selected' : '' }} value="S2">S2</option>
+                                <option {{ old('pendidikan_terakhir_wali') == 'S3' ? 'selected' : '' }} value="S3">S3</option>
                             </select>
                         </div>
 
@@ -571,21 +587,21 @@
                             <label for="">Pekerjaan Wali</label>
                             <select name="pekerjaan_wali" id="" class="form-control" required>
                             <option value="">-- Pilih Pekerjaan Wali --</option>
-                            <option value="Tidak Bekerja">Tidak Bekerja</option>
-                            <option value="Nelayan">Nelayan</option>
-                            <option value="Petani">Petani</option>
-                            <option value="Peternak">Peternak</option>
-                            <option value="PNS/TNI/Polri">PNS/TNI/Polri</option>
-                            <option value="Karyawan Swasta">Karyawan Swasta</option>
-                            <option value="Pedagang Kecil">Pedagang Kecil</option>
-                            <option value="Pedagang Besar">Pedagang Besar</option>
-                            <option value="Wiraswasta">Wiraswasta </option>
-                            <option value="Buruh">Buruh</option>
-                            <option value="Pensiunan">Pensiunan</option>
-                            <option value="Tenaga Kerja Indonesia">Tenaga Kerja Indonesia</option>
-                            <option value="Tidak dapat diterapkan">Tidak dapat diterapkan</option>
-                            <option value="Sudah Meninggal">Sudah Meninggal</option>
-                            <option value="Lainnya">Lainnya</option>
+                            <option {{ old('pekerjaan_wali') == 'Tidak Bekerja' ? 'selected' : '' }} value="Tidak Bekerja">Tidak Bekerja</option>
+                            <option {{ old('pekerjaan_wali') == 'Nelayan' ? 'selected' : '' }} value="Nelayan">Nelayan</option>
+                            <option {{ old('pekerjaan_wali') == 'Petani' ? 'selected' : '' }} value="Petani">Petani</option>
+                            <option {{ old('pekerjaan_wali') == 'Peternak' ? 'selected' : '' }} value="Peternak">Peternak</option>
+                            <option {{ old('pekerjaan_wali') == 'PNS/TNI/Polri' ? 'selected' : '' }} value="PNS/TNI/Polri">PNS/TNI/Polri</option>
+                            <option {{ old('pekerjaan_wali') == 'Karyawan Swasta' ? 'selected' : '' }} value="Karyawan Swasta">Karyawan Swasta</option>
+                            <option {{ old('pekerjaan_wali') == 'Pedagang Kecil' ? 'selected' : '' }} value="Pedagang Kecil">Pedagang Kecil</option>
+                            <option {{ old('pekerjaan_wali') == 'Pedagang Besar' ? 'selected' : '' }} value="Pedagang Besar">Pedagang Besar</option>
+                            <option {{ old('pekerjaan_wali') == 'Wiraswasta' ? 'selected' : '' }} value="Wiraswasta">Wiraswasta </option>
+                            <option {{ old('pekerjaan_wali') == 'Buruh' ? 'selected' : '' }} value="Buruh">Buruh</option>
+                            <option {{ old('pekerjaan_wali') == 'Pensiuanan' ? 'selected' : '' }} value="Pensiunan">Pensiunan</option>
+                            <option {{ old('pekerjaan_wali') == 'Tenaga Kerja Indonesia' ? 'selected' : '' }} value="Tenaga Kerja Indonesia">Tenaga Kerja Indonesia</option>
+                            <option {{ old('pekerjaan_wali') == 'Tidak dapat diterapkan' ? 'selected' : '' }} value="Tidak dapat diterapkan">Tidak dapat diterapkan</option>
+                            <option {{ old('pekerjaan_wali') == 'Sudah Meninggal' ? 'selected' : '' }} value="Sudah Meninggal">Sudah Meninggal</option>
+                            <option {{ old('pekerjaan_wali') == 'Lainnya' ? 'selected' : '' }} value="Lainnya">Lainnya</option>
                             </select>
                         </div>
 
@@ -594,17 +610,17 @@
                             <label>Penghasilan Perbulan Wali</label>
                             <select name="penghasilan_wali" id="" class="form-control" required>
                                 <option value="">-- Pilih Penghasilan Wali --</option>
-                                <option value="Kurang dari Rp 1.000.000">Kurang dari Rp 1.000.000 </option>
-                                <option value="Rp 1.000.000 - Rp 2.000.000">Rp 1.000.000 - Rp 2.000.000 </option>
-                                <option value="Lebih dari Rp 2.000.000">Lebih dari Rp 2.000.000 </option>
-                                <option value="Kurang dari Rp. 500,000">Kurang dari Rp. 500,000 </option>
-                                <option value="Rp. 500,000 - Rp. 999,999">Rp. 500,000 - Rp. 999,999 </option>
-                                <option value="Rp. 1,000,000 - Rp. 1,999,999">Rp. 1,000,000 - Rp. 1,999,999 </option>
-                                <option value="Rp. 2,000,000 - Rp. 4,999,999">Rp. 2,000,000 - Rp. 4,999,999</option>
-                                <option value="Rp. 5,000,000 - Rp. 20,000,000">Rp. 5,000,000 - Rp. 20,000,000 </option>
-                                <option value="Lebih dari Rp. 20,000,000">Lebih dari Rp. 20,000,000 </option>
-                                <option value="Tidak Berpenghasilan">Tidak Berpenghasilan</option>
-                                <option value="Lainnya">Lainnya</option>
+                                <option {{ old('penghasilan_wali') == 'Kurang dari Rp 1.000.000' ? 'selected' : '' }} value="Kurang dari Rp 1.000.000" >Kurang dari Rp 1.000.000 </option>
+                                <option {{ old('penghasilan_wali') == 'Rp 1.000.000 - Rp 2.000.000' ? 'selected' : '' }} value="Rp 1.000.000 - Rp 2.000.000">Rp 1.000.000 - Rp 2.000.000 </option>
+                                <option {{ old('penghasilan_wali') == 'Lebih dari Rp 2.000.000' ? 'selected' : '' }} value="Lebih dari Rp 2.000.000">Lebih dari Rp 2.000.000 </option>
+                                <option {{ old('penghasilan_wali') == 'Kurang dari Rp. 500,000' ? 'selected' : '' }} value="Kurang dari Rp. 500,000">Kurang dari Rp. 500,000 </option>
+                                <option {{ old('penghasilan_wali') == 'Rp. 500,000 - Rp. 999,999' ? 'selected' : '' }} value="Rp. 500,000 - Rp. 999,999">Rp. 500,000 - Rp. 999,999 </option>
+                                <option {{ old('penghasilan_wali') == 'Rp. 1,000,000 - Rp. 1,999,999' ? 'selected' : '' }} value="Rp. 1,000,000 - Rp. 1,999,999">Rp. 1,000,000 - Rp. 1,999,999 </option>
+                                <option {{ old('penghasilan_wali') == 'Rp. 2,000,000 - Rp. 4,999,999' ? 'selected' : '' }} value="Rp. 2,000,000 - Rp. 4,999,999">Rp. 2,000,000 - Rp. 4,999,999</option>
+                                <option {{ old('penghasilan_wali') == 'Rp. 5,000,000 - Rp. 20,000,000' ? 'selected' : '' }} value="Rp. 5,000,000 - Rp. 20,000,000">Rp. 5,000,000 - Rp. 20,000,000 </option>
+                                <option {{ old('penghasilan_wali') == 'Lebih dari Rp. 20,000,000' ? 'selected' : '' }} value="Lebih dari Rp. 20,000,000">Lebih dari Rp. 20,000,000 </option>
+                                <option {{ old('penghasilan_wali') == 'Tidak Berpenghasilan' ? 'selected' : '' }} value="Tidak Berpenghasilan">Tidak Berpenghasilan</option>
+                                <option {{ old('penghasilan_wali') == 'Lainnya' ? 'selected' : '' }} value="Lainnya">Lainnya</option>
                             </select>
                         </div>
                         </div>

@@ -17,6 +17,7 @@ class CreateMothersTable extends Migration
             $table->id();
             $table->string('nama_ibu', 100);
             $table->string('nik_ibu', 100);
+            $table->string('tahun_lahir_ibu', 100);
             $table->string('pendidikan_terakhir_ibu', 100);
             $table->string('pekerjaan_ibu', 100);
             $table->string('penghasilan_ibu', 100);

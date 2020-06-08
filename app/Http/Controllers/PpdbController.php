@@ -11,6 +11,7 @@ use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class PpdbController extends Controller
 {
@@ -72,7 +73,12 @@ class PpdbController extends Controller
             $newSiswa->no_pkh = $request->get('no_pkh');
             $newSiswa->kip = $request->get('kip');
             $newSiswa->no_kip = $request->get('no_kip');
-            $newSiswa->foto_diri = 'default.jpg';
+            if ($request->hasFile('foto_diri')) {
+                $foto = $request->file('foto_diir');
+                $nama_foto = date('dmyhs') . '-' . Str::slug($request->nama_lengkap, '-') . '.' . $foto->getClientOriginalExtension();
+                $foto->move(public_path() . 'avatar', $nama_foto);
+                $newSiswa->foto_diri = $nama_foto;
+            }
             $newSiswa->save();
 
             $newAyah = new Father();
@@ -112,11 +118,13 @@ class PpdbController extends Controller
             $newContact->nomor_rumah = $request->get('nomor_rumah');
             $newContact->nomor_hp = $request->get('nomor_hp');
             $newContact->email = $request->get('email');
+            $newContact->student_id = $newSiswa->id;
             $newContact->save();
             DB::commit();
             Alert::success('Selamat', 'Data anda sudah berhasil di daftarkan');
             return redirect()->back();
         } catch (\Throwable $th) {
+            return $th;
             DB::rollback();
             Alert::warning('Oppps', 'Maaf terjadi kesalahan saat pengisian data');
             return redirect()->back()->withInput();
