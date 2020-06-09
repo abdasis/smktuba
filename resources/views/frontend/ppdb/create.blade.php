@@ -86,7 +86,7 @@
                     <div class="card-footer">
                       <div class="alert alert-primary text-center m-auto">
                         <h5 class="mb-0 ">INFO LEBIH LANJUT HUBUNGI :</h5>
-                        <p>Lorem, ipsum.
+                        <p>0859-3138-8460 (Drs. H Munada Efendi) | 0852-3048-2737 (Ahmad Zakaria) | 0838-5309-7061 (Suhadak Safalas)
                         </p>
                       </div>
                     </div>
